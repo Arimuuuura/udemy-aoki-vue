@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@5.5.55/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <v-app v-cloak>
+        <v-app-bar app>ヘッダー</v-app-bar>
+        <v-main>
+          <v-container fluid>
+            <v-row>
+              <v-col
+                v-for="(dogType, index) in dogTypes"
+                :key="index"
+                cols="6"
+                md="4"
+              >
+                <v-btn color="cyan" dark @click.prevent="fetchDogImage(index)"
+                  >{{ dogType }}</v-btn
+                >
+              </v-col>
+            </v-row>
+            <v-row v-show="isShow">
+              <v-col
+                v-for="dogImage in dogImages"
+                :key="dogImage"
+                cols="12"
+                md="4"
+                sm="6"
+              >
+                <v-card>
+                  <v-img :src="dogImage"></v-img>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-main>
+        <v-footer>フッター</v-footer>
+      </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data() {
+          return {
+            dogTypes: ["akita", "beagle", "pekinese", "pug"],
+            dogUrl: "",
+            dogImages: "",
+            isShow: false,
+            // render: "",
+          };
+        },
+        methods: {
+          async fetchDogImage(index) {
+            const vm = this;
+            vm.dogUrl = `https://dog.ceo/api/breed/${this.dogTypes[index]}/images`;
+            const res = await fetch(vm.dogUrl, { method: "get" }).then(
+              (res) => {
+                if (res.ok) {
+                  vm.isShow = true;
+                  return res.json();
+                }
+                throw new Error("error").catch((e) => {
+                  console.log(e.message);
+                });
+              }
+            );
+
+            vm.render(res);
+          },
+          render(res) {
+            const vm = this;
+            if (res.message.length > 20) {
+              // 一度シャッフルしてから20枚に絞る
+              vm.dogImages = _(res.message).shuffle().slice(0, 20).value();
+            } else {
+              vm.dogImages = _.shuffle(res.message);
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
