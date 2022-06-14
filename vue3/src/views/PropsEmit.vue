@@ -15,6 +15,7 @@
       author: {{ book.author }}
     </li>
   </ul>
+  <button @click="emitTest">EmitTest</button>
 </template>
 
 <script>
@@ -23,9 +24,18 @@ export default {
 		setUpBooks: Array,
 		dataBooks: Array
 	},
-	setup(props) {
+	setup(props, { emit }) {
 		console.log(props.setUpBooks);
 		console.log(props.dataBooks);
+
+		// emit
+		const emitTest = () => {
+			emit('custom-event', '子の値')
+		}
+
+		return {
+			emitTest
+		}
 	},
 }
 </script>
