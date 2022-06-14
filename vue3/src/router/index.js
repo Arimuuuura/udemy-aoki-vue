@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ChildrenView from '@/views/ChildrenView'
 import CompositionView from '@/views/CompositionView'
+import PropsEmit from '@/views/PropsEmit'
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/composition',
     name: 'CompositionView',
     component: CompositionView
+  },
+  {
+    path: '/props-emit',
+    name: 'PropsEmit',
+    component: PropsEmit
   },
   {
     path: '/about',

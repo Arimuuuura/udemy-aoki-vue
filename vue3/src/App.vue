@@ -4,13 +4,42 @@
     <router-link to="/about">About</router-link> |
     <router-link to="/children">Children</router-link> |
     <router-link to="/composition">Composition</router-link> |
+    <router-link to="/props-emit">PropsEmit</router-link> |
   </nav>
-  <router-view/>
+  <router-view :setUpBooks="setUpBooks" :dataBooks="dataBooks" />
 </template>
 
 <script>
+import { reactive } from 'vue'
 export default {
-  data() {},
+  setup() {
+    const setUpBooks = reactive([
+      {
+        title: 'setup book Title1',
+        author: 'setup author 1'
+      },
+      {
+        title: 'setup book Title2',
+        author: 'setup author 2'
+      }
+    ])
+
+    return { setUpBooks }
+  },
+  data() {
+    return {
+      dataBooks: [
+        {
+          title: 'data book Title1',
+          author: 'data author 1'
+        },
+        {
+          title: 'data book Title2',
+          author: 'data author 2'
+        }
+      ]
+    }
+  },
   provide() {
     return {
       userName: '親で設定した値'
