@@ -5,6 +5,7 @@ import CompositionView from '@/views/CompositionView'
 import PropsEmit from '@/views/PropsEmit'
 import FunctionTest from '@/views/FunctionTest'
 import RouterTest from '@/views/RouterTest'
+import VuexTest from '@/views/VuexTest'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/router-test',
     name: 'RouterTest',
     component: RouterTest
+  },
+  {
+    path: '/vuex-test',
+    name: 'VuexTest',
+    component: VuexTest
   },
   {
     path: '/about',

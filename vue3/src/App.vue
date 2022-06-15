@@ -7,6 +7,7 @@
     <router-link to="/props-emit">PropsEmit</router-link> |
     <router-link to="/function-test">FunctionTest</router-link> |
     <router-link to="/router-test">Router</router-link> |
+    <router-link to="/vuex-test">Vuex</router-link> |
   </nav>
   <router-view :setUpBooks="setUpBooks" :dataBooks="dataBooks" @custom-event="parentMethod" />
 </template>
